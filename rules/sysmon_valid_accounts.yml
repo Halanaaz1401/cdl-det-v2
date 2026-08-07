@@ -7,7 +7,6 @@ references:
 author: Cyberion Defense Labs
 date: 2026/08/05
 tags:
-    - attack.defense-evasion
     - attack.t1078
 logsource:
     category: process_creation
