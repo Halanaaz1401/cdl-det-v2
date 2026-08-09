@@ -1,0 +1,29 @@
+title: Outbound Network Connection Triggered by PowerShell
+id: f5a6b7c8-9012-34ab-cdef-555555555555
+status: test
+description: Detects PowerShell process establishing direct outbound network socket connections.
+references:
+    - https://attack.mitre.org/techniques/T1059.001/
+author: Cyberion Defense Labs
+date: 2026/08/09
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    category: network_connection
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+        Initiated: 'true'
+    filter_internal:
+        DestinationIp|startswith:
+            - '10.'
+            - '172.16.'
+            - '192.168.'
+    condition: selection and not filter_internal
+falsepositives:
+    - Administrative remote management scripts using PowerShell modules over trusted subnets.
+level: medium
